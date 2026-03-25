@@ -46,7 +46,7 @@ export default function PricingPage() {
                     Standard PDF Export
                   </li>
                 </ul>
-                <Link href="/builder">
+                <Link href="/#templates">
                   <button className="w-full bg-surface-container-high text-primary py-4 rounded-2xl font-black transition-colors hover:bg-surface-container-highest">
                     Get Started
                   </button>
@@ -88,7 +88,7 @@ export default function PricingPage() {
                      Lifetime Storage
                    </li>
                  </ul>
-                 <Link href="/builder">
+                 <Link href="/#templates">
                    <button className="w-full bg-white text-indigo-950 py-5 rounded-2xl font-black transition-transform hover:scale-[1.02] shadow-xl hover:bg-teal-50">
                      Go Elite
                    </button>
@@ -126,7 +126,7 @@ export default function PricingPage() {
                      No Watermark
                    </li>
                  </ul>
-                 <Link href="/builder">
+                 <Link href="/#templates">
                    <button className="w-full bg-primary text-on-primary py-4 rounded-2xl font-black transition-all hover:bg-primary-container hover:text-primary shadow-lg shadow-primary/10">
                      Get Pro
                    </button>

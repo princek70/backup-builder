@@ -151,7 +151,7 @@ export default async function HomePage() {
                     Lifetime Storage
                   </li>
                 </ul>
-                <Link href="/builder">
+                <Link href="/#templates">
                   <button className="w-full bg-white text-primary py-5 rounded-2xl font-black transition-transform hover:scale-[1.02] shadow-xl">
                     Get Elite Access
                   </button>
