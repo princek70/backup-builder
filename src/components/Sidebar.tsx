@@ -81,9 +81,11 @@ export default function Sidebar() {
       if (response.ok && data.reply) {
          setChatMessages(prev => [...prev, { role: 'agent', text: data.reply }]);
       } else {
+         console.error('Chat API Error:', data.error, response.status, response.statusText);
          setChatMessages(prev => [...prev, { role: 'agent', text: data.error || 'AI Assistant is offline' }]);
       }
     } catch (err) {
+      console.error('Frontend Chat Fetch Error:', err);
       setChatMessages(prev => [...prev, { role: 'agent', text: '**Error:** Communication failed. The server might be down or compiling.' }]);
     } finally {
       setIsTyping(false);

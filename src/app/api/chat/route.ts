@@ -1,12 +1,16 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
+export const maxDuration = 30;
+export const runtime = 'edge';
+
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
+      console.error('[API SETUP ERROR]: GEMINI_API_KEY is missing from the environment variables.');
       return NextResponse.json(
-        { error: 'AI Assistant is offline' },
+        { error: 'AI Assistant is offline (API Key Missing)' },
         { status: 503 }
       );
     }
