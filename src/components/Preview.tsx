@@ -58,28 +58,36 @@ export default function Preview() {
     return () => clearTimeout(timeout);
   }, [resumeData]);
 
-  const handleDownloadPdf = () => {
-    const wrapper = innerRef.current;
-    if (!wrapper) return;
+  const handleDownloadPdf = async () => {
+    const element = document.getElementById('resume-preview');
+    if (!element) return;
     
-    // Calculate exact content height
-    const pxToIn = (px: number) => px / 96;
-    const totalHeightInInches = pxToIn(wrapper.scrollHeight);
-    const formatHeight = Math.max(11, totalHeightInInches); // At least standard 11in tall
+    // Temporarily remove shadow for PDF generation
+    const originalShadow = element.style.boxShadow;
+    element.style.boxShadow = 'none';
 
-    // Inject dynamic print styling for single continuous page
-    const style = document.createElement('style');
-    style.innerHTML = `@media print { @page { size: 8.5in ${formatHeight}in !important; margin: 0; } }`;
-    document.head.appendChild(style);
-
-    // Let styles apply, then call native print dialog
-    requestAnimationFrame(() => {
-      window.print();
-      // Clean up after print window closes
-      setTimeout(() => {
-        document.head.removeChild(style);
-      }, 1000);
-    });
+    try {
+      // Dynamic import prevents SSR errors ('window is not defined')
+      const html2pdf = (await import('html2pdf.js')).default;
+      
+      const safeName = resumeData.personalInfo.name ? resumeData.personalInfo.name.replace(/\s+/g, '_') : 'My';
+      const fileName = `${safeName}_Resume.pdf`;
+      
+      const opt = {
+        margin:       0,
+        filename:     fileName,
+        image:        { type: 'jpeg' as const, quality: 1 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'in' as const, format: 'letter' as const, orientation: 'portrait' as const }
+      };
+      
+      // html2pdf automatically handles capturing and downloading the file
+      await html2pdf().set(opt).from(element).save();
+    } catch (err) {
+      console.error('PDF Generation Failed:', err);
+    } finally {
+      element.style.boxShadow = originalShadow;
+    }
   };
 
   return (
