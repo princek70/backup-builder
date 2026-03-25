@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #1f1a6f;
+  --color-primary-container: #363386;
+  --color-primary-fixed: #e2dfff;
+  --color-primary-fixed-dim: #c3c0ff;
+  
+  --color-secondary: #505f76;
+  --color-secondary-container: #d0e1fb;
+  --color-secondary-fixed: #d3e4fe;
+  
+  --color-tertiary: #002d36;
+  --color-tertiary-container: #004552;
+  --color-tertiary-fixed: #acedff;
+  --color-tertiary-fixed-dim: #4cd7f6;
+
+  --color-surface: #f7f9fb;
+  --color-surface-dim: #d8dadc;
+  --color-surface-bright: #f7f9fb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f4f6;
+  --color-surface-container: #eceef0;
+  --color-surface-container-high: #e6e8ea;
+  --color-surface-container-highest: #e0e3e5;
+  --color-surface-tint: #5654a8;
+
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #464652;
+  --color-on-primary: #ffffff;
+  --color-on-tertiary-fixed: #001f26;
+
+  --color-outline: #777683;
+  --color-outline-variant: #c7c5d4;
+  
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass-panel {
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+  }
+  .btn-primary {
+    @apply bg-primary text-on-primary rounded-xl px-4 py-2 font-medium transition-transform hover:scale-105;
+    background-image: linear-gradient(135deg, var(--color-primary), var(--color-primary-container));
+  }
+  .ghost-input {
+    @apply bg-surface-container-lowest border-b border-outline-variant/20 focus:outline-none focus:border-primary transition-colors py-2 px-1 w-full;
+  }
+  .shadow-ambient {
+    box-shadow: 0 4px 20px rgba(31, 26, 111, 0.04), 0 12px 40px rgba(31, 26, 111, 0.08);
+  }
 }

@@ -1,0 +1,74 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// Single-row table storing all editable landing page content
+model LandingContent {
+  id                   Int      @id @default(autoincrement())
+  heroTagline          String   @default("Agentic Intelligence Redefined")
+  heroTitle            String   @default("Build Your AI-Powered Resume")
+  heroSubtitle         String   @default("A career-changing resume, powered by agentic AI. Architect your future with intelligent bullet points, real-time tone analysis, and professional editorial precision.")
+  heroCta              String   @default("Get Started")
+  heroCtaSecondary     String   @default("View Templates")
+  heroImageUrl         String   @default("https://lh3.googleusercontent.com/aida-public/AB6AXuDfzfgGZUvRl-pJLYcR-Tj7IeO3wk1k2LkxN3FVPNa-tVRtV1XQBYl--V4mstB_aWSXflBFBmeFFWyuHefGjX0ZtrzSTko7WlECsOKSAaYAU543KBVSBqcwAqHjhxkM5NSduSOCkHwKmzf5T9JTjPT_sIk90o0wQ7avbGx1cZogVIXWJnPlPUnt8YV6pA-Yhx00JBpYaTQ60_sQtyYSsn6QPNmPOoiLzPGVSXVl8E8nsxFLCnPTXm6kyATawlETMADEyRVqSFph_9c")
+  feature1Title        String   @default("AI-Powered Bullet Points")
+  feature1Desc         String   @default("Transform basic descriptions into high-impact, achievement-oriented statements using our agentic brain.")
+  feature1Icon         String   @default("smart_toy")
+  feature2Title        String   @default("Real-Time Live Preview")
+  feature2Desc         String   @default("Watch your professional identity take shape instantly as you edit. No context switching, just pure focus.")
+  feature2Icon         String   @default("visibility")
+  feature3Title        String   @default("Professional PDF Export")
+  feature3Desc         String   @default("Generate ATS-friendly, high-fidelity PDF documents that look perfect in every recruiter's inbox.")
+  feature3Icon         String   @default("ios_share")
+  editorialTagline     String   @default("Agentic Thought Process")
+  editorialTitle       String   @default("The intelligence of an editor, the speed of AI.")
+  editorialPoint1Title String   @default("Contextual Awareness")
+  editorialPoint1Desc  String   @default("AI that understands the nuances of your specific industry and target role.")
+  editorialPoint2Title String   @default("Precision Delivery")
+  editorialPoint2Desc  String   @default("Every sentence is optimized for readability and keyword density.")
+  editorialImageUrl    String   @default("https://lh3.googleusercontent.com/aida-public/AB6AXuCml2pKOwrVMOQK-0UV2ooXa5S2UF0wb-L4hhCStl50wGxHoRh1AslCCs8KqPRk9umOzjPU2T7ApsTO-eb7KUm7NdswEjG6_0uFeK583lKCplK1Nd3lM1ELQqpTrwLaYUmnB_kJ0QbbRxOIuhQN8Gisz5K8wEjOrj_xjR8djiYCLl3XxkvPziAiSLmmEFzWDelKnnmkxTB1TjjYVfG5ddo1sB_Zj_agTHrb8BHbjAgQh4-jB4vFqqpvQDXdzx5qqiOr5uGMhd6j3qo")
+  updatedAt            DateTime @updatedAt
+}
+
+/// Key-value store for global site settings
+model SiteSetting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model Template {
+  id           Int          @id @default(autoincrement())
+  name         String
+  thumbnail    String
+  category     String
+  data         String       @default("{}")
+  styles       String       @default("{}")
+  layout       String       @default("default")
+  active       Boolean      @default(true)
+  isMaster     Boolean      @default(true)
+  profileImage String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  resumes      UserResume[]
+}
+
+model UserResume {
+  id           String   @id @default(cuid())
+  name         String
+  data         String
+  styles       String   @default("{}")
+  layout       String   @default("default")
+  templateId   Int
+  userId       String?
+  profileImage String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  template     Template @relation(fields: [templateId], references: [id])
+}

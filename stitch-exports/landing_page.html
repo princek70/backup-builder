@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-fixed-variant": "#38485d",
+              "on-tertiary": "#ffffff",
+              "background": "#f7f9fb",
+              "error-container": "#ffdad6",
+              "surface-container-highest": "#e0e3e5",
+              "outline": "#777683",
+              "on-error-container": "#93000a",
+              "secondary-container": "#d0e1fb",
+              "on-secondary-fixed": "#0b1c30",
+              "surface-container-high": "#e6e8ea",
+              "surface": "#f7f9fb",
+              "error": "#ba1a1a",
+              "secondary": "#505f76",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-secondary-container": "#54647a",
+              "primary-container": "#363386",
+              "surface-container": "#eceef0",
+              "inverse-surface": "#2d3133",
+              "on-surface-variant": "#464652",
+              "primary": "#1f1a6f",
+              "surface-tint": "#5654a8",
+              "tertiary-fixed-dim": "#4cd7f6",
+              "secondary-fixed": "#d3e4fe",
+              "tertiary": "#002d36",
+              "on-tertiary-fixed-variant": "#004e5c",
+              "on-background": "#191c1e",
+              "inverse-primary": "#c3c0ff",
+              "on-tertiary-fixed": "#001f26",
+              "surface-dim": "#d8dadc",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed": "#acedff",
+              "on-primary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#a2a0fa",
+              "surface-container-low": "#f2f4f6",
+              "on-surface": "#191c1e",
+              "surface-variant": "#e0e3e5",
+              "primary-fixed-dim": "#c3c0ff",
+              "on-primary-fixed": "#100563",
+              "surface-bright": "#f7f9fb",
+              "primary-fixed": "#e2dfff",
+              "outline-variant": "#c7c5d4",
+              "tertiary-container": "#004552",
+              "on-tertiary-container": "#15b9d7",
+              "on-primary-fixed-variant": "#3e3c8f",
+              "inverse-on-surface": "#eff1f3",
+              "on-error": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Inter", "sans-serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-[#ffffff]/80 dark:bg-[#1f1a6f]/80 backdrop-blur-xl docked full-width top-0 z-50 shadow-[0_4px_20px_rgba(31,26,111,0.04)] fixed w-full">
+<nav class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#1f1a6f] dark:text-indigo-300" data-icon="architecture">architecture</span>
+<span class="text-xl font-black text-[#1f1a6f] dark:text-white tracking-tighter">ArchitectAI</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#1f1a6f] dark:text-white border-b-2 border-[#1f1a6f] font-semibold tracking-[-0.02em]" href="#">Home</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-indigo-50 transition-all duration-300 px-3 py-1 rounded-xl" href="#">Solutions</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-indigo-50 transition-all duration-300 px-3 py-1 rounded-xl" href="#">Pricing</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-indigo-50 transition-all duration-300 px-3 py-1 rounded-xl" href="#">Templates</a>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-semibold active:scale-[0.98] transition-transform duration-200">
+                Dashboard
+            </button>
+</nav>
+</header>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative overflow-hidden px-8 py-20 md:py-32">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+<div class="flex-1 text-center md:text-left">
+<span class="inline-block py-1 px-4 rounded-full bg-tertiary-container text-on-tertiary-container text-[11px] font-bold uppercase tracking-[0.05em] mb-6">
+                        Agentic Intelligence Redefined
+                    </span>
+<h1 class="text-5xl md:text-7xl font-black text-primary tracking-[-0.02em] leading-[1.1] mb-8">
+                        Build Your AI-Powered Resume
+                    </h1>
+<p class="text-xl text-on-surface-variant max-w-2xl mb-10 leading-relaxed">
+                        A career-changing resume, powered by agentic AI. Architect your future with intelligent bullet points, real-time tone analysis, and professional editorial precision.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-xl font-bold text-lg shadow-[0_12px_40px_rgba(31,26,111,0.08)] hover:translate-y-[-2px] transition-all">
+                            Get Started
+                        </button>
+<button class="bg-surface-container-lowest border-2 border-outline-variant/20 text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-low transition-all">
+                            View Templates
+                        </button>
+</div>
+</div>
+<div class="flex-1 w-full relative">
+<div class="relative z-10 rounded-2xl overflow-hidden shadow-[0_24px_60px_rgba(31,26,111,0.12)] bg-surface-container-lowest p-4">
+<img alt="Resume Preview Workspace" class="w-full h-auto rounded-xl" data-alt="Modern clean resume template on a digital workbench" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfzfgGZUvRl-pJLYcR-Tj7IeO3wk1k2LkxN3FVPNa-tVRtV1XQBYl--V4mstB_aWSXflBFBmeFFWyuHefGjX0ZtrzSTko7WlECsOKSAaYAU543KBVSBqcwAqHjhxkM5NSduSOCkHwKmzf5T9JTjPT_sIk90o0wQ7avbGx1cZogVIXWJnPlPUnt8YV6pA-Yhx00JBpYaTQ60_sQtyYSsn6QPNmPOoiLzPGVSXVl8E8nsxFLCnPTXm6kyATawlETMADEyRVqSFph_9c"/>
+<!-- Floating Agentic UI Elements -->
+<div class="absolute top-10 -left-10 glass-panel p-4 rounded-xl shadow-xl border border-white/20 hidden lg:block">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="auto_fix_high">auto_fix_high</span>
+<div class="text-[11px] font-bold uppercase tracking-wider text-tertiary">Tone Adjusted: Executive</div>
+</div>
+</div>
+</div>
+<!-- Abstract Background Elements -->
+<div class="absolute -top-20 -right-20 w-64 h-64 bg-primary-container/10 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 bg-tertiary-container/10 rounded-full blur-3xl"></div>
+</div>
+</div>
+</section>
+<!-- Feature Bento Grid -->
+<section class="px-8 py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="text-primary text-3xl md:text-4xl font-bold tracking-tight mb-4">Architected for Professional Success</h2>
+<div class="h-1 w-20 bg-primary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature Card 1 -->
+<div class="bg-surface-container-lowest p-10 rounded-xl shadow-[0_4px_20px_rgba(31,26,111,0.04)] hover:shadow-[0_12px_40px_rgba(31,26,111,0.08)] transition-all group border border-transparent hover:border-outline-variant/20">
+<div class="w-14 h-14 rounded-full bg-indigo-50 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white" data-icon="smart_toy">smart_toy</span>
+</div>
+<h3 class="text-primary text-xl font-bold mb-4">AI-Powered Bullet Points</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Transform basic descriptions into high-impact, achievement-oriented statements using our agentic brain.
+                        </p>
+</div>
+<!-- Feature Card 2 -->
+<div class="bg-surface-container-lowest p-10 rounded-xl shadow-[0_4px_20px_rgba(31,26,111,0.04)] hover:shadow-[0_12px_40px_rgba(31,26,111,0.08)] transition-all group border border-transparent hover:border-outline-variant/20">
+<div class="w-14 h-14 rounded-full bg-indigo-50 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white" data-icon="visibility">visibility</span>
+</div>
+<h3 class="text-primary text-xl font-bold mb-4">Real-Time Live Preview</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Watch your professional identity take shape instantly as you edit. No context switching, just pure focus.
+                        </p>
+</div>
+<!-- Feature Card 3 -->
+<div class="bg-surface-container-lowest p-10 rounded-xl shadow-[0_4px_20px_rgba(31,26,111,0.04)] hover:shadow-[0_12px_40px_rgba(31,26,111,0.08)] transition-all group border border-transparent hover:border-outline-variant/20">
+<div class="w-14 h-14 rounded-full bg-indigo-50 flex items-center justify-center mb-8 group-hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-primary group-hover:text-white" data-icon="ios_share">ios_share</span>
+</div>
+<h3 class="text-primary text-xl font-bold mb-4">Professional PDF Export</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                            Generate ATS-friendly, high-fidelity PDF documents that look perfect in every recruiter's inbox.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Asymmetric Editorial Section -->
+<section class="px-8 py-24 bg-surface overflow-hidden">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-20 items-center">
+<div class="w-full md:w-1/2 order-2 md:order-1">
+<div class="relative bg-surface-container rounded-2xl p-1 aspect-[4/5] overflow-hidden group">
+<img alt="Professional Workspace" class="w-full h-full object-cover rounded-xl transition-transform duration-700 group-hover:scale-105" data-alt="Editorial style desk with minimalist professional tools" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCml2pKOwrVMOQK-0UV2ooXa5S2UF0wb-L4hhCStl50wGxHoRh1AslCCs8KqPRk9umOzjPU2T7ApsTO-eb7KUm7NdswEjG6_0uFeK583lKCplK1Nd3lM1ELQqpTrwLaYUmnB_kJ0QbbRxOIuhQN8Gisz5K8wEjOrj_xjR8djiYCLl3XxkvPziAiSLmmEFzWDelKnnmkxTB1TjjYVfG5ddo1sB_Zj_agTHrb8BHbjAgQh4-jB4vFqqpvQDXdzx5qqiOr5uGMhd6j3qo"/>
+</div>
+</div>
+<div class="w-full md:w-1/2 order-1 md:order-2">
+<div class="max-w-md">
+<h3 class="text-[11px] font-bold uppercase tracking-[0.2em] text-tertiary-fixed-dim mb-4">Agentic Thought Process</h3>
+<h2 class="text-4xl font-black text-primary mb-8 leading-tight">The intelligence of an editor, the speed of AI.</h2>
+<div class="space-y-8">
+<div class="flex gap-6">
+<div class="w-px h-12 bg-outline-variant/30 flex-shrink-0"></div>
+<div>
+<h4 class="font-bold text-primary mb-2">Contextual Awareness</h4>
+<p class="text-on-surface-variant text-sm">AI that understands the nuances of your specific industry and target role.</p>
+</div>
+</div>
+<div class="flex gap-6">
+<div class="w-px h-12 bg-outline-variant/30 flex-shrink-0"></div>
+<div>
+<h4 class="font-bold text-primary mb-2">Precision Delivery</h4>
+<p class="text-on-surface-variant text-sm">Every sentence is optimized for readability and keyword density.</p>
+</div>
+</div>
+</div>
+<button class="mt-12 flex items-center gap-2 text-primary font-bold group">
+                            Explore the Technology
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- NavigationDrawer (Mobile/Side) - Suppressed per rules for landing page focus, but structure defined for ecosystem -->
+<!-- Footer -->
+<footer class="w-full border-t border-[#c7c5d4]/20 bg-[#f7f9fb] dark:bg-slate-950">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-8 gap-4">
+<div class="text-sm font-['Inter'] text-slate-500">
+                © 2024 Intelligent Architect. Precision Editorial.
+            </div>
+<div class="flex gap-8">
+<a class="text-slate-400 hover:text-indigo-600 transition-all text-sm" href="#">Features</a>
+<a class="text-slate-400 hover:text-indigo-600 transition-all text-sm" href="#">Privacy Policy</a>
+<a class="text-slate-400 hover:text-indigo-600 transition-all text-sm" href="#">Terms of Service</a>
+<a class="text-slate-400 hover:text-indigo-600 transition-all text-sm" href="#">API</a>
+</div>
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center opacity-80 hover:opacity-100 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px]" data-icon="public">public</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center opacity-80 hover:opacity-100 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
