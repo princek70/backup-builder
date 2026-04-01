@@ -21,14 +21,7 @@ export default function Template3() {
           </p>
         </div>
         <div className="w-[35%] flex flex-col items-end gap-6 pt-2">
-          {/* Profile Image */}
-          <div className="w-28 h-28 rounded-full overflow-hidden border-4 border-gray-900 mb-2 flex items-center justify-center bg-gray-50">
-            {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
-              <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Profile" className="w-full h-full object-cover" />
-            ) : (
-              <svg className="w-12 h-12 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-            )}
-          </div>
+          {/* Removed Profile Image as requested */}
           <div className="text-right text-sm text-gray-800">
             <div>
                <p>{personalInfo.location.split(',')[0]}</p>

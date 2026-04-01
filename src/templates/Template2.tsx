@@ -14,16 +14,7 @@ export default function Template2() {
       {/* Light Mint Left Column */}
       <div className="w-[35%] bg-[#F0FCFA] flex-1 flex flex-col relative z-0">
         
-        {/* Avatar */}
-        <div className="pt-10 px-6 flex justify-center mb-10">
-          <div className="w-40 h-40 shrink-0 aspect-square rounded-full overflow-hidden border-[6px] bg-white relative flex items-center justify-center" style={{ borderColor: PrimaryGreen }}>
-            {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
-              <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Avatar" className="w-full h-full absolute inset-0 object-cover object-top" />
-            ) : (
-              <svg className="w-16 h-16 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-            )}
-          </div>
-        </div>
+        {/* Avatar removed as requested */}
 
         {/* Left Col Contact Ribbon */}
         <div className="mb-10 w-full relative">

@@ -357,14 +357,14 @@ async function main() {
       profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=250&h=250',
       data: JSON.stringify({ 
         ...baseResumeData, 
-        personalInfo: { ...baseResumeData.personalInfo, name: 'Simmi Bhawani', role: 'Graphic Designer', email: 'info@best.site.com' },
+        personalInfo: { ...baseResumeData.personalInfo, name: 'Simmi Bhawani', role: 'Graphic Designer', email: 'info@best.site.com', avatarUrl: '' },
         activeTemplateId: 'template1' // Using template1 styles as fallback for ID 4
       }),
     },
     {
       id: 5,
       name: 'Modern Professional',
-      thumbnail: 'https://images.unsplash.com/photo-1512486133939-0c84eca99992?auto=format&fit=crop&q=80&w=600',
+      thumbnail: 'https://images.unsplash.com/photo-1586281380117-5a14c2f42a6c?auto=format&fit=crop&w=600&q=80',
       category: 'Modern',
       isMaster: true,
       profileImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=250&h=250',
