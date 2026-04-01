@@ -1,116 +1,166 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { X, Menu, Home, CreditCard, PenSquare } from 'lucide-react';
+import { X, Menu, Home, CreditCard, PenSquare, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const links = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'Pricing', href: '/pricing', icon: CreditCard },
-  { name: 'Go to Builder', href: '/builder', icon: PenSquare },
+  { name: 'Builder', href: '/builder', icon: PenSquare },
 ];
 
 export default function MobileMenuButton({ siteName }: { siteName: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
+  // Required for createPortal SSR safety
+  useEffect(() => { setMounted(true); }, []);
+
   // Close menu on route change
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
+  useEffect(() => { setIsOpen(false); }, [pathname]);
 
   // Lock body scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
+  const drawer = (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Full-screen backdrop */}
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            style={{ position: 'fixed', inset: 0, zIndex: 9998, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setIsOpen(false)}
+          />
+
+          {/* Slide-in Drawer */}
+          <motion.div
+            key="drawer"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+            style={{
+              position: 'fixed',
+              top: 0,
+              right: 0,
+              height: '100%',
+              width: '80vw',
+              maxWidth: '320px',
+              zIndex: 9999,
+              background: '#ffffff',
+              boxShadow: '-8px 0 40px rgba(31,26,111,0.18)',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* Drawer Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid rgba(199,197,212,0.3)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Sparkles size={20} style={{ color: '#1f1a6f' }} />
+                <span style={{ fontSize: '18px', fontWeight: 900, color: '#1f1a6f', letterSpacing: '-0.5px' }}>{siteName}</span>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                style={{ padding: '8px', borderRadius: '12px', border: 'none', background: 'transparent', cursor: 'pointer', color: '#464652', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                aria-label="Close menu"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* Nav Links */}
+            <nav style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {links.map((link) => {
+                const isActive = pathname === link.href;
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '16px',
+                      padding: '14px 16px',
+                      borderRadius: '16px',
+                      fontWeight: 600,
+                      fontSize: '16px',
+                      textDecoration: 'none',
+                      transition: 'all 0.15s',
+                      background: isActive ? 'rgba(31,26,111,0.08)' : 'transparent',
+                      color: isActive ? '#1f1a6f' : '#464652',
+                    }}
+                  >
+                    <Icon size={20} />
+                    {link.name}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* CTA at bottom */}
+            <div style={{ padding: '20px 24px', borderTop: '1px solid rgba(199,197,212,0.3)' }}>
+              <Link href="/builder" onClick={() => setIsOpen(false)} style={{ display: 'block' }}>
+                <button style={{
+                  width: '100%',
+                  background: 'linear-gradient(135deg, #1f1a6f, #363386)',
+                  color: '#ffffff',
+                  padding: '16px',
+                  borderRadius: '16px',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 24px rgba(31,26,111,0.25)',
+                }}>
+                  Start Building →
+                </button>
+              </Link>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+
   return (
     <div className="md:hidden">
+      {/* Hamburger / Close toggle button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative z-[60] p-2 text-primary rounded-xl hover:bg-primary/5 transition-colors"
+        className="relative p-2 text-primary rounded-xl hover:bg-primary/5 transition-colors"
         aria-label="Toggle menu"
+        style={{ zIndex: 10000 }}
       >
-        {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={isOpen ? 'close' : 'open'}
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 90, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.div>
+        </AnimatePresence>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[51]"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Slide-in Drawer */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 h-full w-[75vw] max-w-[320px] bg-white z-[55] shadow-2xl flex flex-col"
-            >
-              {/* Drawer Header */}
-              <div className="flex items-center justify-between p-6 border-b border-outline-variant/20">
-                <div className="flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary">architecture</span>
-                  <span className="text-lg font-black text-primary tracking-tighter">{siteName}</span>
-                </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-2 text-on-surface-variant hover:text-primary rounded-xl hover:bg-primary/5 transition-colors"
-                >
-                  <X size={20} />
-                </button>
-              </div>
-
-              {/* Nav Links */}
-              <nav className="flex-1 p-6 space-y-2">
-                {links.map((link) => {
-                  const isActive = pathname === link.href;
-                  const Icon = link.icon;
-                  return (
-                    <Link
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-semibold transition-all active:scale-[0.97] ${
-                        isActive
-                          ? 'bg-primary/10 text-primary'
-                          : 'text-on-surface-variant hover:bg-surface-container-high hover:text-primary'
-                      }`}
-                    >
-                      <Icon size={20} />
-                      {link.name}
-                    </Link>
-                  );
-                })}
-              </nav>
-
-              {/* CTA at bottom */}
-              <div className="p-6 border-t border-outline-variant/20">
-                <Link href="/builder" onClick={() => setIsOpen(false)}>
-                  <button className="w-full bg-primary text-on-primary py-4 rounded-2xl font-bold text-base shadow-lg shadow-primary/20 active:scale-[0.97] transition-transform">
-                    Start Building →
-                  </button>
-                </Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Render drawer at document.body to escape stacking contexts */}
+      {mounted && createPortal(drawer, document.body)}
     </div>
   );
 }
