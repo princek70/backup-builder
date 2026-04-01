@@ -62,10 +62,12 @@ export default function Template1() {
       <div className="w-[65%] flex flex-col pt-4">
         {/* Header Block with absolute positioned Avatar overlay */}
         <div className="flex items-center gap-8 mb-10 h-32 relative">
-           {(resumeData?.profileImage || personalInfo?.avatarUrl) && (
+           {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
              <div className="absolute -left-[160px] top-4 w-48 h-48 shrink-0 aspect-square rounded-full overflow-hidden border-4 border-white shadow-sm z-10 bg-white">
                <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Profile" className="w-full h-full object-cover object-top rounded-full" />
              </div>
+           ) : (
+             <div className="absolute -left-[160px] top-4 w-48 h-48 shrink-0 aspect-square rounded-full bg-gray-200 border-4 border-white shadow-sm z-10"></div>
            )}
            
            <div className={`bg-[#ebeceb] py-6 px-10 rounded-r-full flex-1 relative w-full ${(resumeData?.profileImage || personalInfo?.avatarUrl) ? 'ml-16 left-10 pl-24' : 'ml-0'}`}>

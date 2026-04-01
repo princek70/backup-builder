@@ -15,11 +15,20 @@ export default function Template9() {
   );
 
   return (
-    <div className="w-full min-h-[11in] p-10 bg-white font-serif text-gray-900 leading-snug">
+    <div className="w-full h-full p-10 bg-white font-serif text-gray-900 leading-snug">
       
       {/* HEADER */}
       <div className="text-center mb-6">
-        {/* Profile Image removed as requested */}
+        {/* Profile Image */}
+        <div className="flex justify-center mb-3">
+          <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-300 flex items-center justify-center bg-gray-50">
+            {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
+              <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+            ) : (
+              <svg className="w-10 h-10 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+            )}
+          </div>
+        </div>
         <h1 className="text-4xl font-normal tracking-wide mb-1">{personalInfo?.name}</h1>
         <h2 className="text-[15px] font-medium text-gray-700">{personalInfo?.role}</h2>
         
