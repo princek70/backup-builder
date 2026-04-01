@@ -28,24 +28,24 @@ export default function Preview() {
   const { resumeData } = useUserContext();
   const resumeRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [mobileScale, setMobileScale] = useState(1);
 
   const TemplateComponent = templates[resumeData.activeTemplateId] || Template1;
 
   useEffect(() => {
-    // Mathematical auto-shrink to fit EXACTLY 1 page without reflow breaks
     const calculateScale = () => {
       if (!innerRef.current || !resumeRef.current) return;
-      
-      // Reset temporarily to measure raw height seamlessly
+
+      // Reset temporarily to measure raw height
       innerRef.current.style.transform = 'none';
       innerRef.current.style.width = '100%';
-      
-      const pageHeight = resumeRef.current.clientHeight; // Exactly 11in Box
+
+      const pageHeight = resumeRef.current.clientHeight;
       const contentHeight = innerRef.current.scrollHeight;
-      
+
       if (contentHeight > pageHeight) {
-        // Auto-Shrink applied
         const newScale = pageHeight / contentHeight;
         setScale(newScale);
       } else {
@@ -54,28 +54,42 @@ export default function Preview() {
     };
 
     calculateScale();
-    const timeout = setTimeout(calculateScale, 150); // Delay for font painting completion
+    const timeout = setTimeout(calculateScale, 150);
     return () => clearTimeout(timeout);
   }, [resumeData]);
+
+  // Responsive scaling: shrink the 8.5in paper to fit mobile viewports
+  useEffect(() => {
+    const calculateMobileScale = () => {
+      if (!containerRef.current) return;
+      const containerWidth = containerRef.current.clientWidth;
+      const paperWidthPx = 8.5 * 96; // 816px
+      if (containerWidth < paperWidthPx) {
+        setMobileScale(containerWidth / paperWidthPx);
+      } else {
+        setMobileScale(1);
+      }
+    };
+
+    calculateMobileScale();
+    window.addEventListener('resize', calculateMobileScale);
+    return () => window.removeEventListener('resize', calculateMobileScale);
+  }, []);
 
   const handleDownloadPdf = () => {
     const wrapper = innerRef.current;
     if (!wrapper) return;
-    
-    // Calculate exact content height
+
     const pxToIn = (px: number) => px / 96;
     const totalHeightInInches = pxToIn(wrapper.scrollHeight);
-    const formatHeight = Math.max(11, totalHeightInInches); // At least standard 11in tall
+    const formatHeight = Math.max(11, totalHeightInInches);
 
-    // Inject dynamic print styling for single continuous page
     const style = document.createElement('style');
     style.innerHTML = `@media print { @page { size: 8.5in ${formatHeight}in !important; margin: 0; } }`;
     document.head.appendChild(style);
 
-    // Let styles apply, then call native print dialog
     requestAnimationFrame(() => {
       window.print();
-      // Clean up after print window closes
       setTimeout(() => {
         document.head.removeChild(style);
       }, 1000);
@@ -83,7 +97,7 @@ export default function Preview() {
   };
 
   return (
-    <div className="w-full max-w-4xl h-full flex flex-col items-center">
+    <div ref={containerRef} className="w-full max-w-4xl h-full flex flex-col items-center">
       <style>{`
         @media print {
           @page { margin: 0; size: letter; }
@@ -92,8 +106,13 @@ export default function Preview() {
              break-inside: avoid; 
              page-break-inside: avoid;
           }
+          /* Reset mobile scaling for print */
+          #resume-paper-wrapper {
+            transform: none !important;
+            width: 8.5in !important;
+            height: auto !important;
+          }
         }
-        /* Scale-to-Fit Utility: Compact Mode */
         .compact-mode .mb-8 { margin-bottom: 1rem !important; }
         .compact-mode .mb-6 { margin-bottom: 0.75rem !important; }
         .compact-mode .mb-10 { margin-bottom: 1.25rem !important; }
@@ -104,7 +123,7 @@ export default function Preview() {
         .compact-mode .pb-8 { padding-bottom: 1rem !important; }
       `}</style>
       
-      <div className="w-full flex justify-end mb-6 print:hidden">
+      <div className="w-full flex justify-end mb-4 sm:mb-6 print:hidden">
         <button 
           onClick={handleDownloadPdf}
           className="btn-primary flex items-center gap-2 shadow-sm"
@@ -114,23 +133,33 @@ export default function Preview() {
         </button>
       </div>
 
-      {/* Dynamic Boundaries */}
-      <div 
-        className="w-[8.5in] min-h-[11in] mx-auto bg-white shadow-ambient print:shadow-none overflow-visible flex-shrink-0 flex flex-col"
-        ref={resumeRef}
-        id="resume-preview"
+      {/* Responsive Paper Wrapper — scales the fixed 8.5in paper to fit mobile screens */}
+      <div
+        id="resume-paper-wrapper"
+        style={{
+          transform: `scale(${mobileScale})`,
+          transformOrigin: 'top center',
+          width: mobileScale < 1 ? `${(1 / mobileScale) * 100}%` : '100%',
+          height: mobileScale < 1 ? `${11 * 96 * mobileScale}px` : 'auto',
+        }}
+        className="print:!transform-none"
       >
-        {/* Dynamic Deep Shrink Wrapper */}
         <div 
-          ref={innerRef}
-          className={`origin-top-left flex flex-col bg-white flex-1 ${scale < 0.95 ? 'compact-mode' : ''}`}
-          style={{ 
-            transform: `scale(${scale})`, 
-            width: `${(1 / scale) * 100}%`,
-            minHeight: `${(1 / scale) * 100}%`
-          }}
+          className="w-[8.5in] min-h-[11in] mx-auto bg-white shadow-ambient print:shadow-none overflow-visible flex-shrink-0 flex flex-col"
+          ref={resumeRef}
+          id="resume-preview"
         >
-           <TemplateComponent />
+          <div 
+            ref={innerRef}
+            className={`origin-top-left flex flex-col bg-white flex-1 ${scale < 0.95 ? 'compact-mode' : ''}`}
+            style={{ 
+              transform: `scale(${scale})`, 
+              width: `${(1 / scale) * 100}%`,
+              minHeight: `${(1 / scale) * 100}%`
+            }}
+          >
+             <TemplateComponent />
+          </div>
         </div>
       </div>
     </div>
