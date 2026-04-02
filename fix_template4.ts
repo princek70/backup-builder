@@ -1,0 +1,1 @@
+import { PrismaClient } from "@prisma/client"; const prisma = new PrismaClient(); prisma.template.findUnique({where: {id: 4}}).then(t => { if (!t) return; const d = JSON.parse(t.data); d.personalInfo.avatarUrl = ""; prisma.template.update({where: {id: 4}, data: {data: JSON.stringify(d)}}).then(() => { console.log("Updated template 4 avatarUrl"); prisma.$disconnect(); }); });
