@@ -15,7 +15,7 @@ export default function Template9() {
   );
 
   return (
-    <div className="w-full h-full p-10 bg-white font-serif text-gray-900 leading-snug">
+    <div className="w-full min-h-[11in] p-10 bg-white font-serif text-gray-900 leading-snug">
       
       {/* HEADER */}
       <div className="text-center mb-6">

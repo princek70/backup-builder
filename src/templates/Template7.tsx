@@ -19,7 +19,7 @@ export default function Template7() {
   );
 
   return (
-    <div className="w-full h-full p-8 flex flex-col bg-white text-gray-800 font-sans">
+    <div className="w-full min-h-[11in] p-8 flex flex-col bg-white text-gray-800 font-sans">
       
       {/* Header - Centered with background and border */}
       <div className="w-full flex flex-col items-center mb-6">
