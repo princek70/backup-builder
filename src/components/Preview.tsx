@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useUserContext } from '@/context/UserContext';
 import { Download } from 'lucide-react';
+import { useReactToPrint } from 'react-to-print';
 
 import Template1 from '@/templates/Template1';
 import Template2 from '@/templates/Template2';
@@ -29,8 +30,9 @@ export default function Preview() {
   const resumeRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
   const [mobileScale, setMobileScale] = useState(1);
+  const [printHeight, setPrintHeight] = useState('11in');
+  const [scale, setScale] = useState(1);
 
   const TemplateComponent = templates[resumeData.activeTemplateId] || Template1;
 
@@ -45,6 +47,11 @@ export default function Preview() {
       const pageHeight = resumeRef.current.clientHeight;
       const contentHeight = innerRef.current.scrollHeight;
 
+      // Track dynamic print height to force single-page export
+      const pxToIn = (px: number) => px / 96;
+      const totalInches = pxToIn(contentHeight);
+      setPrintHeight(`${Math.max(11, totalInches)}in`);
+
       if (contentHeight > pageHeight) {
         const newScale = pageHeight / contentHeight;
         setScale(newScale);
@@ -58,7 +65,7 @@ export default function Preview() {
     return () => clearTimeout(timeout);
   }, [resumeData]);
 
-  // Responsive scaling: shrink the 8.5in paper to fit mobile viewports
+  // Responsive scaling
   useEffect(() => {
     const calculateMobileScale = () => {
       if (!containerRef.current) return;
@@ -76,25 +83,11 @@ export default function Preview() {
     return () => window.removeEventListener('resize', calculateMobileScale);
   }, []);
 
-  const handleDownloadPdf = () => {
-    const wrapper = innerRef.current;
-    if (!wrapper) return;
-
-    const pxToIn = (px: number) => px / 96;
-    const totalHeightInInches = pxToIn(wrapper.scrollHeight);
-    const formatHeight = Math.max(11, totalHeightInInches);
-
-    const style = document.createElement('style');
-    style.innerHTML = `@media print { @page { size: 8.5in ${formatHeight}in !important; margin: 0; } }`;
-    document.head.appendChild(style);
-
-    requestAnimationFrame(() => {
-      window.print();
-      setTimeout(() => {
-        document.head.removeChild(style);
-      }, 1000);
-    });
-  };
+  const handleDownloadPdf = useReactToPrint({
+    contentRef: resumeRef,
+    documentTitle: `${resumeData.personalInfo.name || 'Resume'}`,
+    pageStyle: `@page { size: 8.5in ${printHeight} !important; margin: 0; } body { margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }`,
+  });
 
   return (
     <div ref={containerRef} className="w-full max-w-4xl h-full flex flex-col items-center">
@@ -102,15 +95,25 @@ export default function Preview() {
         @media print {
           @page { margin: 0; size: letter; }
           body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          
+          /* Ensures the printed content fits inside 8.5x11 inches without scale distortion */
           #resume-preview { 
+             transform: none !important;
+             width: 8.5in !important;
+             height: auto !important;
+             min-height: 11in !important;
              break-inside: avoid; 
              page-break-inside: avoid;
+             box-shadow: none !important;
+             margin: 0 !important;
+             padding: 0 !important;
           }
-          /* Reset mobile scaling for print */
-          #resume-paper-wrapper {
-            transform: none !important;
-            width: 8.5in !important;
-            height: auto !important;
+
+          /* Restore inner scaling so content shrinks to fit correctly on print */
+          .compact-mode {
+             transform: scale(${scale}) !important;
+             transform-origin: top left !important;
+             width: ${(1 / scale) * 100}% !important;
           }
         }
         .compact-mode .mb-8 { margin-bottom: 1rem !important; }
@@ -125,7 +128,7 @@ export default function Preview() {
       
       <div className="w-full flex justify-end mb-4 sm:mb-6 print:hidden">
         <button 
-          onClick={handleDownloadPdf}
+          onClick={(e) => { e.preventDefault(); handleDownloadPdf(); }}
           className="btn-primary flex items-center gap-2 shadow-sm"
         >
           <Download size={16} />
@@ -133,7 +136,6 @@ export default function Preview() {
         </button>
       </div>
 
-      {/* Responsive Paper Wrapper — scales the fixed 8.5in paper to fit mobile screens */}
       <div
         id="resume-paper-wrapper"
         style={{
