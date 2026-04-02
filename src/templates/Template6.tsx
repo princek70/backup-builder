@@ -12,7 +12,7 @@ export default function Template6() {
   const otherSections = sections?.filter((sec: any) => sec.type !== 'experience');
 
   return (
-    <div className="w-full min-h-[11in] flex bg-white font-sans text-gray-900 leading-normal">
+    <div className="w-full h-full flex bg-white font-sans text-gray-900 leading-normal">
       {/* LEFT SIDEBAR (Dark Blue matching Modern Executive) */}
       <div className="w-[35%] bg-[#1a2b3c] text-white p-8 flex flex-col h-full shrink-0">
         {/* Profile Photo */}

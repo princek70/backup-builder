@@ -381,7 +381,7 @@ async function main() {
       category: 'Executive',
       isMaster: true,
       profileImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=250&h=250',
-      data: JSON.stringify({ ...baseResumeData, activeTemplateId: 'template6' }),
+      data: JSON.stringify({ ...executiveData, activeTemplateId: 'template6' }),
     },
     {
       id: 7,
@@ -390,7 +390,7 @@ async function main() {
       category: 'Creative',
       isMaster: true,
       profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250',
-      data: JSON.stringify({ ...baseResumeData, activeTemplateId: 'template7' }),
+      data: JSON.stringify({ ...creativeData, activeTemplateId: 'template7' }),
     },
     {
       id: 8,
@@ -399,7 +399,7 @@ async function main() {
       category: 'Tech',
       isMaster: true,
       profileImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=250&h=250',
-      data: JSON.stringify({ ...baseResumeData, activeTemplateId: 'template8' }),
+      data: JSON.stringify({ ...minimalistData, activeTemplateId: 'template8' }),
     },
     {
       id: 9,
@@ -408,7 +408,7 @@ async function main() {
       category: 'Academic',
       isMaster: true,
       profileImage: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=250&h=250',
-      data: JSON.stringify({ ...baseResumeData, activeTemplateId: 'template9' }),
+      data: JSON.stringify({ ...formalData, activeTemplateId: 'template9' }),
     },
   ];
 

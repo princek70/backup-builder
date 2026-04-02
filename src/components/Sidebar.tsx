@@ -168,7 +168,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-surface-container-low p-4 sm:p-6 no-print">
+    <div className="flex flex-col h-full bg-surface-container-low p-6 no-print">
       <div className="mb-8 border-b border-primary/10 pb-4 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-black text-primary tracking-tighter">ArchitectAI</h1>
@@ -193,7 +193,7 @@ export default function Sidebar() {
         </div>
       </div>
 
-      <div className="flex space-x-1 sm:space-x-2 mb-4 sm:mb-6 border-b border-outline-variant/30 pb-2">
+      <div className="flex space-x-2 mb-6 border-b border-outline-variant/30 pb-2">
         {(['content', 'templates', 'ai'] as const).map((tab) => (
           <button
             key={tab}
@@ -255,7 +255,7 @@ export default function Sidebar() {
                   value={resumeData.personalInfo.role}
                   onChange={(e) => updatePersonalInfo({ role: e.target.value })}
                 />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <input
                     type="email"
                     placeholder="Email"

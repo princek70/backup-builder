@@ -22,7 +22,7 @@ export default async function HomePage() {
     <MainLayout>
       <div className="pt-16">
         {/* Hero Section */}
-        <section className="relative px-4 sm:px-8 py-12 md:py-20">
+        <section className="relative px-8 py-12 md:py-20">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
             <div className="flex-1 text-center md:text-left">
               <span className="inline-block py-1 px-4 rounded-full bg-tertiary-container text-on-tertiary-container text-[11px] font-bold uppercase tracking-widest mb-6">
@@ -63,14 +63,14 @@ export default async function HomePage() {
         </section>
 
         {/* Templates Section RESTORED */}
-        <section id="templates" className="px-4 sm:px-8 pt-16 sm:pt-24 pb-20 sm:pb-32 bg-surface-container-low scroll-mt-24 mb-12">
+        <section id="templates" className="px-8 pt-24 pb-32 bg-surface-container-low scroll-mt-24 mb-12">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-primary text-3xl md:text-5xl font-black tracking-tight mb-4 text-primary">Choose Your Blueprint</h2>
               <p className="text-on-surface-variant max-w-xl mx-auto">Select a template to begin archetecting your professional identity. Your progress is saved in our secure database.</p>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-10 pb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-8">
               {templates.map((template: any) => (
                 <TemplateCard key={template.id} template={template} />
               ))}
@@ -79,7 +79,7 @@ export default async function HomePage() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="px-4 sm:px-8 py-12 bg-surface relative overflow-hidden">
+        <section id="pricing" className="px-8 py-12 bg-surface relative overflow-hidden">
           <div className="max-w-7xl mx-auto relative z-10">
             <div className="text-center mb-10">
               <h2 className="text-primary text-3xl md:text-5xl font-black tracking-tight mb-4 text-primary">Pricing Plans</h2>
@@ -120,7 +120,7 @@ export default async function HomePage() {
               </div>
 
               {/* Elite - Prominent in Middle */}
-              <div className="bg-primary p-6 sm:p-8 rounded-[2.5rem] shadow-2xl shadow-primary/30 flex flex-col relative md:scale-[1.05] z-20 group hover:shadow-primary/50 transition-all duration-500">
+              <div className="bg-primary p-8 rounded-[2.5rem] shadow-2xl shadow-primary/30 flex flex-col relative scale-[1.05] z-20 group hover:shadow-primary/50 transition-all duration-500">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-tertiary text-on-tertiary px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-md flex items-center gap-2">
                    <Zap size={10} className="fill-on-tertiary" />
                    Best Value

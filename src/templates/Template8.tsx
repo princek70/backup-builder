@@ -18,7 +18,7 @@ export default function Template8() {
   );
 
   return (
-    <div className="w-full min-h-[11in] flex bg-white font-sans text-gray-800">
+    <div className="w-full h-full flex bg-white font-sans text-gray-800">
       
       {/* LEFT COLUMN - Teal accents */}
       <div className="w-[35%] bg-[#f4faf9] border-r-8 border-[#489d8d]/10 h-full p-8 flex flex-col pt-12">

@@ -1,1 +1,0 @@
-import { PrismaClient } from '@prisma/client'; const prisma = new PrismaClient(); prisma.template.findMany({where: {id: {in: [6, 8]}}}).then(t => { console.log(JSON.stringify(t, null, 2)); prisma.$disconnect(); })

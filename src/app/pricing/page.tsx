@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function PricingPage() {
   return (
     <MainLayout>
-      <section className="px-4 sm:px-8 pt-20 pb-24 bg-surface relative overflow-hidden min-h-screen flex flex-col items-center">
+      <section className="px-8 pt-20 pb-24 bg-surface relative overflow-hidden min-h-screen flex flex-col items-center">
         {/* Premium Background Gradients */}
         <div className="absolute top-0 right-0 w-[50rem] h-[50rem] bg-indigo-600/5 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-teal-500/5 rounded-full blur-[100px] -translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
@@ -55,7 +55,7 @@ export default function PricingPage() {
             </div>
 
             {/* Elite - Most Prominent */}
-            <div className="bg-indigo-950 p-6 sm:p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-900/40 flex flex-col relative md:scale-[1.05] z-20 group hover:shadow-indigo-600/50 hover:-translate-y-2 transition-all duration-500 overflow-hidden ring-4 ring-indigo-500/20">
+            <div className="bg-indigo-950 p-8 rounded-[2.5rem] shadow-2xl shadow-indigo-900/40 flex flex-col relative md:scale-[1.05] z-20 group hover:shadow-indigo-600/50 hover:-translate-y-2 transition-all duration-500 overflow-hidden ring-4 ring-indigo-500/20">
                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-teal-400 text-teal-950 px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-teal-500/20 z-30 flex items-center gap-2">
                  <Zap size={10} className="fill-teal-950" />
                  Best Value
