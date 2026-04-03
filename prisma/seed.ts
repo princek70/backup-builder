@@ -136,7 +136,7 @@ const creativeData = {
     phone: '(555) 555-5555',
     location: 'Shasta, TX',
     summary: 'I am a highly creative person, passionate about digital marketing. Over the past 4 years, I have built my own digital channel with over 200k subscribers. This experience has allowed me to develop deep knowledge of how marketing channels work.',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&h=250',
+    avatarUrl: '', // Removed profile picture
   },
   skills: ['Content Creation', 'Illustration', 'Photography', 'Video Editing', 'Brand Strategy', 'Adobe Creative Suite'],
   sections: [
@@ -187,7 +187,7 @@ const minimalistData = {
     phone: '+91 9XXXX-9XXXX',
     location: '123 Tech Road, Mumbai',
     summary: 'I am a qualified and professional web developer with five years of experience in database administration and website design. Strong creative and analytical skills. Team player with an eye for detail and scalable architectures.',
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250',
+    avatarUrl: '', // Removed profile picture
   },
   skills: ['Web Design', 'Design Thinking', 'Wireframe Creation', 'React / Next.js', 'Backend Tech', 'TypeScript', 'Prisma', 'PostgreSQL'],
   sections: [
@@ -341,10 +341,10 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop',
       category: 'Creative',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ 
         ...baseResumeData, 
-        personalInfo: { ...baseResumeData.personalInfo, name: 'Alex Rivera', role: 'UX/UI Designer', email: 'arivera@example.com' },
+        personalInfo: { ...baseResumeData.personalInfo, name: 'Alex Rivera', role: 'UX/UI Designer', email: 'arivera@example.com', avatarUrl: '' },
         activeTemplateId: 'template3' 
       }),
     },
@@ -354,10 +354,10 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?auto=format&fit=crop&w=600&q=80',
       category: 'Minimal',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ 
         ...baseResumeData, 
-        personalInfo: { ...baseResumeData.personalInfo, name: 'Simmi Bhawani', role: 'Graphic Designer', email: 'info@best.site.com' },
+        personalInfo: { ...baseResumeData.personalInfo, name: 'Simmi Bhawani', role: 'Graphic Designer', email: 'info@best.site.com', avatarUrl: '' },
         activeTemplateId: 'template1' // Using template1 styles as fallback for ID 4
       }),
     },
@@ -367,10 +367,10 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1512486133939-0c84eca99992?auto=format&fit=crop&q=80&w=600',
       category: 'Modern',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ 
         ...baseResumeData, 
-        personalInfo: { ...baseResumeData.personalInfo, name: 'Sarah Jenkins', role: 'Marketing Director', email: 'sarah.j@example.com' },
+        personalInfo: { ...baseResumeData.personalInfo, name: 'Sarah Jenkins', role: 'Marketing Director', email: 'sarah.j@example.com', avatarUrl: '' },
         activeTemplateId: 'template5' 
       }),
     },
@@ -380,7 +380,7 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80',
       category: 'Executive',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ ...executiveData, activeTemplateId: 'template6' }),
     },
     {
@@ -389,7 +389,7 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=600&q=80',
       category: 'Creative',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ ...creativeData, activeTemplateId: 'template7' }),
     },
     {
@@ -398,7 +398,7 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80',
       category: 'Tech',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ ...minimalistData, activeTemplateId: 'template8' }),
     },
     {
@@ -407,7 +407,7 @@ async function main() {
       thumbnail: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80',
       category: 'Academic',
       isMaster: true,
-      profileImage: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=250&h=250',
+      profileImage: null,
       data: JSON.stringify({ ...formalData, activeTemplateId: 'template9' }),
     },
   ];

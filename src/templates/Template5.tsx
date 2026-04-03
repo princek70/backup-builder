@@ -55,16 +55,7 @@ export default function Template5() {
 
       {/* Right Column */}
       <div className="w-[45%] text-white pt-16 px-12" style={{ backgroundColor: DeepBlue }}>
-         {/* Profile Photo */}
-         <div className="flex justify-center mb-10">
-           <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white/30 flex items-center justify-center bg-white/10">
-             {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
-               <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Profile" className="w-full h-full object-cover" />
-             ) : (
-               <svg className="w-14 h-14 text-white/30" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-             )}
-           </div>
-         </div>
+         {/* Profile Photo Removed */}
 
          {/* Contact */}
          <div className="mb-16">

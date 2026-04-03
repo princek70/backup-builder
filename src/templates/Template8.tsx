@@ -22,13 +22,7 @@ export default function Template8() {
       
       {/* LEFT COLUMN - Teal accents */}
       <div className="w-[35%] bg-[#f4faf9] border-r-8 border-[#489d8d]/10 h-full p-8 flex flex-col pt-12">
-        <div className="w-40 h-40 rounded-full overflow-hidden border-8 border-[#489d8d] mb-12 mx-auto shadow-md flex items-center justify-center bg-white">
-          {(resumeData?.profileImage || personalInfo?.avatarUrl) ? (
-            <img src={resumeData?.profileImage || personalInfo?.avatarUrl} alt="Avatar" className="w-full h-full object-cover" />
-          ) : (
-            <svg className="w-16 h-16 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-          )}
-        </div>
+        {/* Profile Image Removed */}
 
         <div className="mb-8 relative">
            <SectionHeader title="CONTACT" />
