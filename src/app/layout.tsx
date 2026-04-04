@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: "The Intelligent Architect Resume Builder",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -29,6 +29,7 @@ export default function Preview() {
   const resumeRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
+  const [previewScale, setPreviewScale] = useState(1);
   const [isShort, setIsShort] = useState(false);
 
   const TemplateComponent = templates[resumeData.activeTemplateId] || Template1;
@@ -130,6 +131,17 @@ export default function Preview() {
         setScale(1);
       }
       
+      // Calculate OUTER scale for mobile responsiveness horizontally
+      if (resumeRef.current && resumeRef.current.parentElement) {
+        const parentWidth = resumeRef.current.parentElement.clientWidth;
+        const A4_PIXEL_WIDTH = 794; // approx 210mm in pixels
+        if (parentWidth < A4_PIXEL_WIDTH) {
+           setPreviewScale((parentWidth - 4) / A4_PIXEL_WIDTH);
+        } else {
+           setPreviewScale(1);
+        }
+      }
+      
       // Restore inline styles quickly before React re-renders to avoid flicker
       innerRef.current.style.transform = prevTransform;
       innerRef.current.style.width = prevWidth;
@@ -197,10 +209,14 @@ export default function Preview() {
 
       {/* Dynamic Boundaries: Fixed A4 Height */}
       <div 
-        className="w-[210mm] h-[297mm] mx-auto bg-white shadow-ambient print:shadow-none overflow-hidden flex-shrink-0 flex flex-col"
+        className="w-[210mm] origin-top mx-auto bg-white shadow-ambient print:shadow-none overflow-hidden flex-shrink-0 flex flex-col transition-transform"
         ref={resumeRef}
         id="resume-preview"
-        style={{ height: `${A4_HEIGHT}px` }}
+        style={{ 
+          height: `${A4_HEIGHT}px`,
+          transform: previewScale < 1 ? `scale(${previewScale})` : 'none',
+          marginBottom: previewScale < 1 ? `-${Math.round(A4_HEIGHT * (1 - previewScale))}px` : '0px'
+        }}
       >
         {/* Dynamic Deep Shrink Wrapper */}
         <div 
