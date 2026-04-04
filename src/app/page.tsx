@@ -5,6 +5,8 @@ import TemplateCard from "@/components/TemplateCard";
 import NavLinks from "@/components/NavLinks";
 import MainLayout from "@/components/MainLayout";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const content = await prisma.landingContent.findFirst({
     where: { id: 1 },
