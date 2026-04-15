@@ -185,7 +185,7 @@ export default function Preview() {
   };
 
   return (
-    <div className="w-full max-w-4xl h-full flex flex-col items-center print:block print:h-auto overflow-hidden text-black bg-white">
+    <div className="w-full max-w-4xl min-h-full flex flex-col items-center print:block print:h-auto">
       <style>{`
         @media print {
           @page { margin: 0; size: A4; }
