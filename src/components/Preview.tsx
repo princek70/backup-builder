@@ -34,7 +34,7 @@ export default function Preview() {
 
   const TemplateComponent = templates[resumeData.activeTemplateId] || Template1;
 
-  const A4_HEIGHT = 1123; // Standard A4 height at 96 DPI
+  const A4_HEIGHT = 1118; // Slightly less than standard A4 (1123) to prevent blank second page
 
   // runtime Print-to-Fit Optimization
   useEffect(() => {
@@ -44,7 +44,10 @@ export default function Preview() {
     style.innerHTML = `
       @media print {
         @page { size: A4; margin: 0; }
-        body { 
+        html, body {
+          height: 100vh !important;
+          max-height: 100vh !important;
+          overflow: hidden !important;
           margin: 0 !important; 
           padding: 0 !important; 
           -webkit-print-color-adjust: exact; 
@@ -55,11 +58,13 @@ export default function Preview() {
         }
         #resume-preview { 
           width: 210mm !important; 
-          height: 297mm !important; 
+          height: 296.5mm !important; 
+          max-height: 296.5mm !important;
           margin: 0 !important; 
           padding: 0 !important;
           box-shadow: none !important;
           overflow: hidden !important;
+          page-break-after: avoid;
         }
         .resume-section, section, div[class*="mb-"], .item { 
           break-inside: avoid !important; 
@@ -76,8 +81,8 @@ export default function Preview() {
       // 2. Precision Scaling using scrollHeight
       content.style.transform = 'none';
       content.style.width = '100%';
-      const contentHeight = content.scrollHeight; 
-      
+      const contentHeight = content.scrollHeight;
+
       if (contentHeight > A4_HEIGHT) {
         const scaleFactor = A4_HEIGHT / contentHeight;
         // 3. The 'Vercel Fix': Explicit Scale-Origin and Height Reset
@@ -93,8 +98,8 @@ export default function Preview() {
     };
 
     const handleAfterPrint = () => {
-       // Reset for DOM stability after print window close
-       if (resumeRef.current) resumeRef.current.style.height = `${A4_HEIGHT}px`;
+      // Reset for DOM stability after print window close
+      if (resumeRef.current) resumeRef.current.style.height = `${A4_HEIGHT}px`;
     };
 
     window.addEventListener('beforeprint', handleBeforePrint);
@@ -110,38 +115,38 @@ export default function Preview() {
   useEffect(() => {
     const calculateScale = () => {
       if (!innerRef.current || !resumeRef.current) return;
-      
+
       // Temporarily remove transform and reset dimensions to get TRUE natural scrollHeight
       const prevTransform = innerRef.current.style.transform;
       const prevWidth = innerRef.current.style.width;
       const prevMinHeight = innerRef.current.style.minHeight;
-      
+
       innerRef.current.style.transform = 'none';
       innerRef.current.style.width = '100%';
       innerRef.current.style.minHeight = '100%'; // Critical fix: wipe inflated minHeight
-      
+
       const contentHeight = innerRef.current.scrollHeight;
       const short = contentHeight < A4_HEIGHT;
       setIsShort(short);
-      
+
       if (contentHeight > A4_HEIGHT) {
         const newScale = A4_HEIGHT / contentHeight;
         setScale(newScale);
       } else {
         setScale(1);
       }
-      
+
       // Calculate OUTER scale for mobile responsiveness horizontally
       if (resumeRef.current && resumeRef.current.parentElement) {
         const parentWidth = resumeRef.current.parentElement.clientWidth;
         const A4_PIXEL_WIDTH = 794; // approx 210mm in pixels
         if (parentWidth < A4_PIXEL_WIDTH) {
-           setPreviewScale((parentWidth - 4) / A4_PIXEL_WIDTH);
+          setPreviewScale((parentWidth - 4) / A4_PIXEL_WIDTH);
         } else {
-           setPreviewScale(1);
+          setPreviewScale(1);
         }
       }
-      
+
       // Restore inline styles quickly before React re-renders to avoid flicker
       innerRef.current.style.transform = prevTransform;
       innerRef.current.style.width = prevWidth;
@@ -152,7 +157,7 @@ export default function Preview() {
     const timeout = setTimeout(calculateScale, 150);
     const timeout2 = setTimeout(calculateScale, 500); // Catch delayed image loads
     const timeout3 = setTimeout(calculateScale, 1500); // Catch custom fonts loading
-    
+
     window.addEventListener('resize', calculateScale);
 
     // Setup Observers to capture height changes caused by images/fonts loading asynchronously
@@ -180,7 +185,7 @@ export default function Preview() {
   };
 
   return (
-    <div className="w-full max-w-4xl h-full flex flex-col items-center">
+    <div className="w-full max-w-4xl h-full flex flex-col items-center print:block print:h-auto overflow-hidden text-black bg-white">
       <style>{`
         @media print {
           @page { margin: 0; size: A4; }
@@ -196,9 +201,9 @@ export default function Preview() {
         .compact-mode .py-6 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
         .compact-mode .pb-8 { padding-bottom: 1rem !important; }
       `}</style>
-      
+
       <div id="print-action-bar" className="w-full flex justify-end mb-6 print:hidden no-print">
-        <button 
+        <button
           onClick={handleDownloadPdf}
           className="btn-primary flex items-center gap-2 shadow-sm"
         >
@@ -208,29 +213,29 @@ export default function Preview() {
       </div>
 
       {/* Dynamic Boundaries: Fixed A4 Height */}
-      <div 
+      <div
         className="w-[210mm] origin-top mx-auto bg-white shadow-ambient print:shadow-none overflow-hidden flex-shrink-0 flex flex-col transition-transform"
         ref={resumeRef}
         id="resume-preview"
-        style={{ 
+        style={{
           height: `${A4_HEIGHT}px`,
           transform: previewScale < 1 ? `scale(${previewScale})` : 'none',
           marginBottom: previewScale < 1 ? `-${Math.round(A4_HEIGHT * (1 - previewScale))}px` : '0px'
         }}
       >
         {/* Dynamic Deep Shrink Wrapper */}
-        <div 
+        <div
           ref={innerRef}
           id="resume-content-wrapper"
           className={`resume-content origin-top-left flex flex-col bg-white flex-1 ${scale < 0.95 ? 'compact-mode' : ''}`}
-          style={{ 
-            transform: `scale(${scale})`, 
+          style={{
+            transform: `scale(${scale})`,
             width: `${(1 / scale) * 100}%`,
             minHeight: `${(1 / scale) * 100}%`,
             justifyContent: isShort ? 'space-between' : 'start'
           }}
         >
-           <TemplateComponent />
+          <TemplateComponent />
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export default function BuilderPage() {
 
         {/* Preview Pane (Hidden on mobile if 'edit' is active) */}
         <div 
-          className={`w-full md:flex-1 h-[calc(100vh-60px)] md:h-full bg-surface-container overflow-y-auto p-4 md:p-12 flex justify-center print:p-0 print:bg-white shrink-0
+          className={`w-full md:flex-1 h-[calc(100vh-60px)] md:h-full bg-surface-container overflow-y-auto p-4 md:p-12 flex justify-center print:p-0 print:bg-white print:block shrink-0
             ${activeTab === 'preview' ? 'flex' : 'hidden md:flex'}
           `}
         >
